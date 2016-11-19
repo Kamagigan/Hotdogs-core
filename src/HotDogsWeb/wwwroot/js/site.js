@@ -1,15 +1,18 @@
 ﻿(function () {
 
     var $sidebarAndWrapper = $("#sidebar, #wrapper");
+    var icon = $("#sidebarToggle i.fa");
 
     $("#sidebarToggle").on("click", function(){
         $sidebarAndWrapper.toggleClass("hide-sidebar");
 
         if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
-            $(this).text("Show Sidebar");
+            $(icon).removeClass("fa-chevron-left");
+            $(icon).addClass("fa-chevron-right");
         }
         else {
-            $(this).text("Hide Sidebar");
+            $(icon).removeClass("fa-chevron-right");
+            $(icon).addClass("fa-chevron-left");
         }
     });
     
