@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HotDogsWeb.Services;
+using HotDogsWeb.Context;
 
 namespace HotDogsWeb
 {
@@ -32,23 +33,32 @@ namespace HotDogsWeb
         {
             services.AddSingleton(_config);
 
-            if (_env.IsDevelopment())
-            {
+            if (_env.IsDevelopment()) {
                 services.AddScoped<IMailService, DebugMailService>();
             }
-            else
-            {
-                //Not Debug method
-            }
 
+            //Init Config DB
+            services.AddDbContext<HotDogContext>();
+            services.AddScoped<IHotDogsRepository, HotDogsRepository>();
+            services.AddTransient<HotDogContextSeedData>();
+
+            services.AddLogging();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, 
+            HotDogContextSeedData seeder)
         {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddDebug(LogLevel.Information);
+            }
+            else
+            {
+                loggerFactory.AddDebug(LogLevel.Error);
             }
             
 
@@ -62,6 +72,8 @@ namespace HotDogsWeb
                     defaults: new { controller = "App", action = "Index" }
                 );
             });
+
+            seeder.SeedSampleData().Wait();
         }
     }
 }

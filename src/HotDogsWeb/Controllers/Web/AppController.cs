@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using HotDogsWeb.ViewModels;
 using HotDogsWeb.Services;
 using Microsoft.Extensions.Configuration;
+using HotDogsWeb.Context;
+using Microsoft.Extensions.Logging;
 
 namespace HotDogsWeb.Controllers.Web
 {
@@ -14,16 +16,30 @@ namespace HotDogsWeb.Controllers.Web
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
+        private IHotDogsRepository _repository;
+        private ILogger<AppController> _logger;
 
-        public AppController(IMailService mailService, IConfigurationRoot config)
+        public AppController(IMailService mailService, IConfigurationRoot config, IHotDogsRepository context,
+            ILogger<AppController> logger)
         {
             _mailService = mailService;
             _config = config;
+            _repository = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                var data = _repository.GetAllStores();
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get stores in Index page : {ex.Message}");
+                return Redirect("/Error");
+            }
         }
 
         public IActionResult Contact()

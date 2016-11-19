@@ -1,5 +1,9 @@
 {
   "MailSettings": {
-    "ToAddress":  "lcudini@klanik.com"
+    "ToAddress": "lcudini@klanik.com"
+  },
+  "ConnectionStrings": {
+    "HotDogContextConnection": "Server=localhost;Database=hotdogs_db;Uid=hotdogs;Pwd=hotdogs;",
+    "RootConnection": "Server=localhost;Database=hotdogs_db;Uid=root;Pwd=azerty;"
   }
 }
