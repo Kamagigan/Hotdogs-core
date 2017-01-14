@@ -8,20 +8,23 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
     "Microsoft.AspNetCore.StaticFiles": "1.1.0",
     "Microsoft.AspNetCore.Mvc": "1.1.0",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.0",
     "System.ComponentModel.Annotations": "4.3.0",
     "System.Diagnostics.Debug": "4.3.0",
     "Microsoft.Extensions.Configuration": "1.1.0",
     "Microsoft.Extensions.Configuration.Json": "1.1.0",
     "Microsoft.EntityFrameworkCore": "1.1.0",
-    "Pomelo.EntityFrameworkCore.MySQL": "1.1.0-rtm-10000",
     "Microsoft.EntityFrameworkCore.Design": {
       "type": "build",
       "version": "1.1.0"
     },
     "Microsoft.EntityFrameworkCore.tools.DotNet": "1.1.0-preview4-final",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0"
+    "System.Net.Primitives": "4.3.0",
+    "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.1.0",
+    "Microsoft.Extensions.Logging.Debug": "1.1.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Pomelo.EntityFrameworkCore.MySql": "1.1.0",
+    "AutoMapper": "5.2.0"
   },
 
   "tools": {

@@ -8,9 +8,10 @@ using HotDogsWeb.Context;
 namespace HotDogsWeb.Migrations
 {
     [DbContext(typeof(HotDogContext))]
-    partial class HotDogContextModelSnapshot : ModelSnapshot
+    [Migration("20170113200827_maj_addStoreId")]
+    partial class maj_addStoreId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
@@ -26,22 +27,22 @@ namespace HotDogsWeb.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("HotDogStoreId");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("PrepTime");
 
                     b.Property<int>("Price");
 
+                    b.Property<int>("StoreId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("HotDogStoreId");
+                    b.HasIndex("StoreId");
 
                     b.ToTable("HotDogs");
                 });
 
-            modelBuilder.Entity("HotDogsWeb.Models.HotDogStore", b =>
+            modelBuilder.Entity("HotDogsWeb.Models.Store", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -63,9 +64,10 @@ namespace HotDogsWeb.Migrations
 
             modelBuilder.Entity("HotDogsWeb.Models.HotDog", b =>
                 {
-                    b.HasOne("HotDogsWeb.Models.HotDogStore")
+                    b.HasOne("HotDogsWeb.Models.Store")
                         .WithMany("HotDogs")
-                        .HasForeignKey("HotDogStoreId");
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

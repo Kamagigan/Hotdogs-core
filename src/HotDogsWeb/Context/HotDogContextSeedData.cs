@@ -20,122 +20,138 @@ namespace HotDogsWeb.Context
         {
             if (!_context.Stores.Any())
             {
-                var tommys = new Store()
+                var tommys = new HotDogStore()
                 {
                     Name = "Tommy's Dinner",
                     Location = "Avignon",
-                    ManagerName = "", // TODO Add UserName
+                    ManagerName = "Sergent Burp", // TODO Add UserName
                     Latitude = 43.9786091,
                     Longitude = 4.8712175,
-                    HotDogs = new List<HotDog>()
-                    {
-                        new HotDog () {
-                            Name = "The Classic",
-                            ShortDescription = "Avec Pain, Saucisse Jumbo et Moutarde",
-                            Available =true,
-                            DateCreated = new DateTime(2016, 11, 19),
-                            PrepTime =10,
-                            Price =8
-                        },
-                        new HotDog()
-                        {
-                            Name = "Chili Hot Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Chili Con Carne et Fromage",
-                            Available = true,
-                            PrepTime= 15,
-                            Price = 10,
-                        },
-                        new HotDog()
-                        {
-                            Name = "Pastrami'n Hot Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Pastrami et Fromage",
-                            Available = true,
-                            PrepTime= 15,
-                            Price = 10,
-                        }
-                    }
                 };
 
                 _context.Stores.Add(tommys);
-                _context.HotDogs.AddRange(tommys.HotDogs);
 
-                var hotdogfather = new Store()
+                var hotdogfather = new HotDogStore()
                 {
                     Name = "The Hot Dog Father",
                     Location = "Lyon",
-                    ManagerName = "", // TODO Add UserName
+                    ManagerName = "Caporal Arf", // TODO Add UserName
                     Latitude = 45.7634609,
                     Longitude = 4.8427191,
-                    HotDogs = new List<HotDog>()
-                    {
-                        new HotDog()
-                        {
-                            Name = "The Original",
-                            ShortDescription = "Avec Pain, Saucisse et Moutarde US",
-                            Available = true,
-                            PrepTime= 10,
-                            Price = 8,
-                        },
-                        new HotDog()
-                        {
-                            Name = "BBQ Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Sauce BBQ, Oigons Frits",
-                            Available = true,
-                            PrepTime= 12,
-                            Price = 8,
-                        },
-                        new HotDog()
-                        {
-                            Name = "Spicy Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Sauce Cheddar, Hot Sauce, Jalapeno",
-                            Available = true,
-                            PrepTime= 15,
-                            Price = 8,
-                        }
-                    }
                 };
 
                 _context.Stores.Add(hotdogfather);
-                _context.HotDogs.AddRange(hotdogfather.HotDogs);
 
-                var emilys = new Store()
+                var emilys = new HotDogStore()
                 {
                     Name = "Emily's American Diner",
                     Location = "Grenoble",
-                    ManagerName = "", // TODO Add UserName
+                    ManagerName = "Adjudant Arg", // TODO Add UserName
                     Latitude = 45.1921764,
                     Longitude = 5.7304209,
-                    HotDogs = new List<HotDog>()
+                };
+
+                _context.Stores.Add(emilys);
+
+                await _context.SaveChangesAsync();
+
+                tommys.HotDogs = new List<HotDog>()
+                {
+                    new HotDog () {
+                        Name = "The Classic",
+                        Description = "Avec Pain, Saucisse Jumbo et Moutarde",
+                        Available =true,
+                        DateCreated = new DateTime(2016, 11, 19),
+                        PrepTime =10,
+                        Price =8,
+                        HotDogStoreId = tommys.Id
+                    },
+                    new HotDog()
+                    {
+                        Name = "Chili Hot Dog",
+                        Description = "Avec Pain, Saucisse, Chili Con Carne et Fromage",
+                        Available = true,
+                        PrepTime= 15,
+                        Price = 10,
+                        HotDogStoreId = tommys.Id
+                    },
+                    new HotDog()
+                    {
+                        Name = "Pastrami'n Hot Dog",
+                        Description = "Avec Pain, Saucisse, Pastrami et Fromage",
+                        Available = true,
+                        PrepTime= 15,
+                        Price = 10,
+                        HotDogStoreId = tommys.Id
+                    }
+                };
+ 
+                _context.HotDogs.AddRange(tommys.HotDogs);
+
+                hotdogfather.HotDogs = new List<HotDog>()
+                {
+                    new HotDog()
+                    {
+                        Name = "The Original",
+                        Description = "Avec Pain, Saucisse et Moutarde US",
+                        Available = true,
+                        PrepTime= 10,
+                        Price = 8,
+                        HotDogStoreId = hotdogfather.Id
+                    },
+                    new HotDog()
+                    {
+                        Name = "BBQ Dog",
+                        Description = "Avec Pain, Saucisse, Sauce BBQ, Oigons Frits",
+                        Available = true,
+                        PrepTime= 12,
+                        Price = 8,
+                        HotDogStoreId = hotdogfather.Id
+                    },
+                    new HotDog()
+                    {
+                        Name = "Spicy Dog",
+                        Description = "Avec Pain, Saucisse, Sauce Cheddar, Hot Sauce, Jalapeno",
+                        Available = true,
+                        PrepTime= 15,
+                        Price = 8,
+                        HotDogStoreId = hotdogfather.Id
+                    }
+                };
+
+                _context.HotDogs.AddRange(hotdogfather.HotDogs);
+
+                emilys.HotDogs = new List<HotDog>()
                     {
                         new HotDog()
                         {
                             Name = "Classic Hot Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Ketchup & Moutarde au miel",
+                            Description = "Avec Pain, Saucisse, Ketchup & Moutarde au miel",
                             Available = true,
                             PrepTime= 10,
                             Price = 8,
+                            HotDogStoreId = emilys.Id
                         },
                         new HotDog()
                         {
                             Name = "Manhattan Hot Dog",
-                            ShortDescription = "Avec Pain, Saucisse, Bacon, Chedar sauce, Ketchup & Moutarde au miel ",
+                            Description = "Avec Pain, Saucisse, Bacon, Chedar sauce, Ketchup & Moutarde au miel ",
                             Available = true,
                             PrepTime= 12,
                             Price = 11,
+                            HotDogStoreId = emilys.Id
                         },
                         new HotDog()
                         {
                             Name = "Hot Dog Park",
-                            ShortDescription = "Avec Pain, Saucisse, champignons Sauce Cheddar, Ketchup & Moutarde au miel",
+                            Description = "Avec Pain, Saucisse, champignons Sauce Cheddar, Ketchup & Moutarde au miel",
                             Available = true,
                             PrepTime= 10,
                             Price = 11,
-
+                            HotDogStoreId = emilys.Id
                         }
-                    }
-                };
+                    };
 
-                _context.Stores.Add(emilys);
                 _context.HotDogs.AddRange(emilys.HotDogs);
 
                 await _context.SaveChangesAsync();

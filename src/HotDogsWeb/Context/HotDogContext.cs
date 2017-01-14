@@ -17,7 +17,7 @@ namespace HotDogsWeb.Context
             _config = config;
         }
 
-        public DbSet<Store> Stores { get; set; }
+        public DbSet<HotDogStore> Stores { get; set; }
         public DbSet<HotDog> HotDogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,7 +25,6 @@ namespace HotDogsWeb.Context
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseMySql(_config["ConnectionStrings:HotDogContextConnection"]);
-            //optionsBuilder.UseMySql(_config["ConnectionStrings:RootConnection"]);
         }
     }
 }

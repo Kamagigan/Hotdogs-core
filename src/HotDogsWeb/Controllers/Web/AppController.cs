@@ -16,15 +16,15 @@ namespace HotDogsWeb.Controllers.Web
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
-        private IHotDogsRepository _repository;
+        private IHotDogRepository _repository;
         private ILogger<AppController> _logger;
 
-        public AppController(IMailService mailService, IConfigurationRoot config, IHotDogsRepository context,
+        public AppController(IMailService mailService, IConfigurationRoot config, IHotDogRepository repository,
             ILogger<AppController> logger)
         {
             _mailService = mailService;
             _config = config;
-            _repository = context;
+            _repository = repository;
             _logger = logger;
         }
 

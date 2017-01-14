@@ -10,6 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HotDogsWeb.Services;
 using HotDogsWeb.Context;
+using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using HotDogsWeb.Models;
+using HotDogsWeb.ViewModels;
 
 namespace HotDogsWeb
 {
@@ -39,19 +43,26 @@ namespace HotDogsWeb
 
             //Init Config DB
             services.AddDbContext<HotDogContext>();
-            services.AddScoped<IHotDogsRepository, HotDogsRepository>();
+            services.AddScoped<IHotDogRepository, HotDogRepository>();
             services.AddTransient<HotDogContextSeedData>();
 
             services.AddLogging();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(config =>
+                {
+                    config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
-            IHostingEnvironment env, 
-            ILoggerFactory loggerFactory, 
-            HotDogContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, HotDogContextSeedData seeder)
         {
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<HotDogViewModel, HotDog>().ReverseMap();
+                config.CreateMap<HotDogStoreViewModel, HotDogStore>().ReverseMap();
+            });
+
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 loggerFactory.AddDebug(LogLevel.Information);
@@ -60,8 +71,7 @@ namespace HotDogsWeb
             {
                 loggerFactory.AddDebug(LogLevel.Error);
             }
-            
-
+           
             app.UseStaticFiles();
 
             app.UseMvc(config =>
