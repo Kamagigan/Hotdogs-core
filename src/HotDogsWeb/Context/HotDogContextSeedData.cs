@@ -1,4 +1,5 @@
 ﻿using HotDogsWeb.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,43 @@ namespace HotDogsWeb.Context
     public class HotDogContextSeedData
     {
         private HotDogContext _context;
+        private UserManager<HotDogUser> _userManager;
 
-        public HotDogContextSeedData(HotDogContext context)
+        public HotDogContextSeedData(HotDogContext context, UserManager<HotDogUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task SeedSampleData()
         {
+            if (await _userManager.FindByEmailAsync("lcudini@klanik.com") == null)
+            {
+                var user = new HotDogUser("lcudini")
+                {
+                    Email = "lcudini@klanik.com"
+                };
+
+                await _userManager.CreateAsync(user, "Qbgtph88!");
+            }
+
+            if (await _userManager.FindByEmailAsync("dkadaboom@klanik.com") == null)
+            {
+                var user = new HotDogUser("dkadaboom")
+                {
+                    Email = "dkadaboom@klanik.com"
+                };
+
+                await _userManager.CreateAsync(user, "Qbgtph88!");
+            }
+
             if (!_context.Stores.Any())
             {
                 var tommys = new HotDogStore()
                 {
                     Name = "Tommy's Dinner",
                     Location = "Avignon",
-                    ManagerName = "Sergent Burp", // TODO Add UserName
+                    ManagerName = "lcudini", // TODO Add UserName
                     Latitude = 43.9786091,
                     Longitude = 4.8712175,
                 };
@@ -35,7 +58,7 @@ namespace HotDogsWeb.Context
                 {
                     Name = "The Hot Dog Father",
                     Location = "Lyon",
-                    ManagerName = "Caporal Arf", // TODO Add UserName
+                    ManagerName = "lcudini", // TODO Add UserName
                     Latitude = 45.7634609,
                     Longitude = 4.8427191,
                 };
@@ -46,7 +69,7 @@ namespace HotDogsWeb.Context
                 {
                     Name = "Emily's American Diner",
                     Location = "Grenoble",
-                    ManagerName = "Adjudant Arg", // TODO Add UserName
+                    ManagerName = "dkadaboom", // TODO Add UserName
                     Latitude = 45.1921764,
                     Longitude = 5.7304209,
                 };

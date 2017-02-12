@@ -29,6 +29,13 @@ namespace HotDogsWeb.Context
             return _context.Stores.ToList();
         }
 
+        public IEnumerable<HotDogStore> GetStoresByUsername(string name)
+        {
+            return _context.Stores
+                .Where(s => s.ManagerName == name)
+                .ToList();
+        }
+
         public HotDogStore GetStoreById(int storeId)
         {
             if (storeId <= 0)
@@ -40,7 +47,6 @@ namespace HotDogsWeb.Context
                     .FirstOrDefault();
         }
 
-        //TODO
         public void AddHotDog(int storeId, HotDog newHotDog)
         {
             var store = GetStoreById(storeId);

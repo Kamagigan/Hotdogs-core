@@ -12,6 +12,8 @@ namespace HotDogsWeb.Context
 
         IEnumerable<HotDogStore> GetAllStores();
 
+        IEnumerable<HotDogStore> GetStoresByUsername(string name);
+
         HotDogStore GetStoreById(int storeId);
 
         void AddHotDog(int storeId, HotDog newHotDog);

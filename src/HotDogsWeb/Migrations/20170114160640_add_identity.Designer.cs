@@ -8,9 +8,10 @@ using HotDogsWeb.Context;
 namespace HotDogsWeb.Migrations
 {
     [DbContext(typeof(HotDogContext))]
-    partial class HotDogContextModelSnapshot : ModelSnapshot
+    [Migration("20170114160640_add_identity")]
+    partial class add_identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");

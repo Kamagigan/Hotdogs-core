@@ -36,13 +36,8 @@ namespace HotDogsWeb.Models
         /// </summary>
         public int PrepTime { get; set; }
         /// <summary>
-        /// Id du magasin vendant le hotdog
+        /// Magasin Vendant le hotdog
         /// </summary>
-        public int HotDogStoreId { get; set; }
-
-        //public string Description { get; set; }
-        //public string ImagePath { get; set; }
-        //public bool IsFavorite { get; set; }
-        //public string GroupName { get; set; }
+        public virtual HotDogStore Store { get; set; }
     }
 }

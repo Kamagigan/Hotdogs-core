@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<HotDogsWeb.Models.HotDogStore>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Stores Page";
     Layout = "_layout";
 }
 <div class="row">
     <div class="col-md-6">
         <h1>Rays' HotDogs</h1>
         <p>This will be a fun website with HotDogs !</p>
-
-        <div>
-            <a asp-controller="App" asp-action="stores" class="btn btn-lg btn-success">Go to my stores</a>
-        </div>
 
         <form>
             <div class="form-group">
@@ -26,7 +22,7 @@
     </div>
 
     <div class="col-md-6">
-        <h2>The HotDogs Stores</h2>
+        <h2>My HotDogs Stores</h2>
         <ul>
             @foreach (var item in Model)
             {

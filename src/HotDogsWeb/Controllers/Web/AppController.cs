@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HotDogsWeb.ViewModels;
 using HotDogsWeb.Services;
 using Microsoft.Extensions.Configuration;
 using HotDogsWeb.Context;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotDogsWeb.Controllers.Web
 {
@@ -34,6 +31,21 @@ namespace HotDogsWeb.Controllers.Web
             {
                 var data = _repository.GetAllStores();
                 return View(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get stores in Index page : {ex.Message}");
+                return Redirect("/Error");
+            }
+        }
+
+        [Authorize]
+        public IActionResult Stores()
+        {
+            try
+            {
+                var stores = _repository.GetAllStores();
+                return View(stores);
             }
             catch (Exception ex)
             {

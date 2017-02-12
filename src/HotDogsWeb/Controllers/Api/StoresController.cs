@@ -2,6 +2,7 @@
 using HotDogsWeb.Context;
 using HotDogsWeb.Models;
 using HotDogsWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -48,7 +49,33 @@ namespace HotDogsWeb.Controllers.api
             }
         }
 
+        [HttpGet("mystores")]
+        [Authorize]
+        public IActionResult GetMyStores()
+        {
+            try
+            {
+                var stores = _repository.GetStoresByUsername(User.Identity.Name);
+
+                if (stores != null && stores.Count() > 0)
+                {
+                    return Ok(Mapper.Map<IEnumerable<HotDogStoreViewModel>>(stores));
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Fail to Get All Stores", ex);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
         [HttpPost("")]
+        //[Authorize]
         public async Task<IActionResult> AddStore([FromBody]HotDogStoreViewModel storeViewModel)
         {
             try
@@ -56,6 +83,8 @@ namespace HotDogsWeb.Controllers.api
                 if (ModelState.IsValid)
                 {
                     var newStore = Mapper.Map<HotDogStore>(storeViewModel);
+
+                    newStore.ManagerName = User.Identity.Name;
 
                     _repository.AddStore(newStore);
 

@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using HotDogsWeb.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HotDogsWeb.Context
 {
-    public class HotDogContext : DbContext
+    public class HotDogContext : IdentityDbContext<HotDogUser>
     {
         private IConfigurationRoot _config;
 
